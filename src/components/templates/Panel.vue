@@ -1,6 +1,9 @@
 <script setup lang="ts">
 // Top level imports
 
+// store 
+import { store } from "@/store";
+
 // Atoms / Molecules / Organisms
 import Search from "../molecules/Search.vue";
 import List from "../molecules/List.vue";
@@ -13,10 +16,11 @@ const cities = [
     { key: 'tokyo', label: 'Tokyo' },
 ];
 
+const { weatherData } = store;
 const weatherDetails = [
-    { param: 'cloudy', value: '89%' },
-    { param: 'humidity', value: '64%' },
-    { param: 'wind', value: '8km/h' }
+    { param: 'cloudy', value: `${weatherData.clouds.all} %` },
+    { param: 'humidity', value: `${weatherData.main.humidity} %` },
+    { param: 'wind', value: `${weatherData.wind.speed} m/s` }
 ];
 
 </script>
