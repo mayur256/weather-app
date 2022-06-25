@@ -1,13 +1,12 @@
 <script setup lang="ts">
 // Top level imports
-import { ref } from 'vue';
-import type { Ref } from 'vue';
+
+// store
+import { store } from '@/store';
 
 // Atoms / Molecules / Organisms
 import WeatherSnapshot from '../organisms/WeatherSnapshot.vue';
 
-const iconName: Ref<string> = ref('113');
-const iconDirPath = "../../assets/icons/day/"
 </script>
 
 <template>
@@ -15,13 +14,8 @@ const iconDirPath = "../../assets/icons/day/"
         <h3 class="brand text-uppercase">weather app &trade;</h3>
 
         <WeatherSnapshot
-            temp="300"
-            city="London"
-            :weather="[{
-                id: 800,
-                main: 'Clear',
-                description : 'clear sky',
-                icon: '01d'
-             } ]" />
+            :temp="store.weatherData.main.temp"
+            :city="store.weatherData.name"
+            :weather="store.weatherData.weather" />
     </div>
 </template>

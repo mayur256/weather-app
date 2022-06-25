@@ -1,31 +1,24 @@
 <script setup lang="ts">
 // Top level imports
 import { computed } from "vue";
-
-// Props type definitions
-type Weather = {
-    id: number;
-    main: string;
-    description: string;
-    icon: string
-}
+import type { Weather } from "@/types";
 
 interface IProps {
-    temp: string;
+    temp: number;
     city: string;
-    weather: [Weather]
+    weather: Weather[]
     dt?: number
 }
 
 const {
-    temp = '',
+    temp,
     city = '',
     weather,
     dt = new Date().getTime()
 } = defineProps<IProps>();
 
 // Convert kelvin to celcius
-const tempInCelcius = computed(() => Math.floor(+temp - 273.15));
+const tempInCelcius = computed(() => Math.ceil(temp - 273.15));
 
 </script>
 
