@@ -57,6 +57,10 @@ import AppContainer from '../components/templates/AppContainer.vue';
     align-items: center;
 }
 
+.brand {
+    color: #fff;
+}
+
 .city-time,
 .temp,
 .weather {
@@ -148,6 +152,7 @@ import AppContainer from '../components/templates/AppContainer.vue';
 }
 
 .panel ul h4 {
+    color: #ccc;
     margin: 3rem 0;
 }
 
@@ -164,6 +169,14 @@ import AppContainer from '../components/templates/AppContainer.vue';
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.text-capitalize {
+    text-transform: capitalize;
+}
+
+.text-uppercase {
+    text-transform: uppercase;
 }
 
 /* Responsive Design Code */
