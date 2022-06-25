@@ -1,38 +1,46 @@
 <script setup lang="ts">
+// Top level imports
+
+// Atoms / Molecules / Organisms
+import Search from "../molecules/Search.vue";
+import List from "../molecules/List.vue";
+import ListItem from "../atoms/ListItem.vue";
+
+const cities = [
+    { key: 'new-york', label: 'New York' },
+    { key: 'new-delhi', label: 'New Delhi' },
+    { key: 'london', label: 'London' },
+    { key: 'tokyo', label: 'Tokyo' },
+];
+
+const weatherDetails = [
+    { param: 'cloudy', value: '89%' },
+    { param: 'humidity', value: '64%' },
+    { param: 'wind', value: '8km/h' }
+];
+
 </script>
 
 <template>
     <div class="panel">
-        <form id="locationinput">
-            <input type="text" name="" class="search" placeholder="Search location" />
+        <Search />
 
-            <button type="submit" class="submit">
-                <span class="material-icons">search</span>
-            </button>
-        </form>
+        <List classes="cities">
+            <ListItem classes="city" v-for="city of cities" :key="city.key">
+                {{city.label}}
+            </ListItem>
+        </List>
 
-        <ul class="cities">
-            <li class="city">New York</li>
-            <li class="city">New Delhi</li>
-            <li class="city">Paris</li>
-            <li class="city">Tokyo</li>
-        </ul>
+        <List classes="details">
+            <h4>Weather details</h4>
 
-        <ul class="details">
-            <h4 class="">Weather details</h4>
-            <li class="">
-                <span>Cloudy</span>
-                <span class="cloud">89%</span>
-            </li>
-            <li class="">
-                <span>Humidity</span>
-                <span class="humidity">64%</span>
-            </li>
-            <li class="">
-                <span>Wind</span>
-                <span class="wind">8km/h</span>
-            </li>
-
-        </ul>
+            <ListItem
+                v-for="detail of weatherDetails"
+                :key="detail.param"
+            >
+                <span>{{detail.param}}</span>
+                <span :class="detail.param">{{detail.value}}</span>
+            </ListItem>
+        </List>
     </div>
 </template>
