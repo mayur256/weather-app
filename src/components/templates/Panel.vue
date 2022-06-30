@@ -1,5 +1,7 @@
 <script setup lang="ts">
 // Top level imports
+import { ref } from "vue";
+import type { Ref } from "vue";
 
 // store 
 import { store } from "@/store";
@@ -23,12 +25,23 @@ const weatherDetails = [
     { param: 'wind', value: `${weatherData.wind.speed} m/s` }
 ];
 
+// Data declaration
+const city: Ref<string> = ref('');
+
+/** Handler functions */
+const initiateSearch = () => {
+    alert(city.value);
+}
 </script>
 
 <template>
     <div class="panel">
-        <Search />
-
+        <Search
+            v-model="city"
+            @input="inputVal => city = inputVal"
+            @click="initiateSearch"
+        />
+        
         <List classes="cities">
             <ListItem classes="city" v-for="city of cities" :key="city.key">
                 {{city.label}}
