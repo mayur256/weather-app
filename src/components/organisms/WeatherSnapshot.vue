@@ -10,15 +10,14 @@ interface IProps {
     dt?: number
 }
 
-const {
-    temp,
-    city = '',
-    weather,
-    dt = new Date().getTime()
-} = defineProps<IProps>();
+const props = defineProps<IProps>();
 
 // Convert kelvin to celcius
-const tempInCelcius = computed(() => Math.ceil(temp - 273.15));
+const tempInCelcius = computed(() => Math.ceil(props.temp - 273.15));
+const time = computed(() => {
+    const dateTime = new Date();
+    return `${dateTime.getHours()}:${dateTime.getMinutes()}` ;
+})
 
 </script>
 
@@ -27,9 +26,9 @@ const tempInCelcius = computed(() => Math.ceil(temp - 273.15));
         <h1 class="temp">{{tempInCelcius}}&#176;</h1>
 
         <div class="city-time">
-            <h1 class="city-name">{{city}}</h1>
+            <h1 class="city-name">{{props.city}}</h1>
             <small>
-                <span class="time">06:09</span>
+                <span class="time">{{time}}</span>
                 -
                 <span class="date">
                     Monday Sep 19

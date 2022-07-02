@@ -16,6 +16,8 @@ import WeatherSnapshot from '../organisms/WeatherSnapshot.vue';
         <WeatherSnapshot
             :temp="store.weatherData.main.temp"
             :city="store.weatherData.name"
-            :weather="store.weatherData.weather" />
+            :weather="store.weatherData.weather"
+            :dt="store.weatherData.dt"
+        />
     </div>
 </template>

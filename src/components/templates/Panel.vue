@@ -18,19 +18,23 @@ const cities = [
     { key: 'tokyo', label: 'Tokyo' },
 ];
 
-const { weatherData } = store;
 const weatherDetails = [
-    { param: 'cloudy', value: `${weatherData.clouds.all} %` },
-    { param: 'humidity', value: `${weatherData.main.humidity} %` },
-    { param: 'wind', value: `${weatherData.wind.speed} m/s` }
+    { param: 'cloudy', value: `${store.weatherData.clouds.all} %` },
+    { param: 'humidity', value: `${store.weatherData.main.humidity} %` },
+    { param: 'wind', value: `${store.weatherData.wind.speed} m/s` }
 ];
 
 // Data declaration
 const city: Ref<string> = ref('');
 
 /** Handler functions */
-const initiateSearch = () => {
-    alert(city.value);
+const initiateSearch = (): void => {
+    const cityVal = city.value;
+    if (!cityVal) return;
+
+    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityVal}&appid=ee0b8fbe82f7cb7d637108da99424a74`)
+        .then(response => response.json())
+        .then(response => store.weatherData = response)
 }
 </script>
 
@@ -55,7 +59,7 @@ const initiateSearch = () => {
                 v-for="detail of weatherDetails"
                 :key="detail.param"
             >
-                <span>{{detail.param}}</span>
+                <span class="text-capitalize">{{detail.param}}</span>
                 <span :class="detail.param">{{detail.value}}</span>
             </ListItem>
         </List>
