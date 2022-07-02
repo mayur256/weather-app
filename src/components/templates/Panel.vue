@@ -19,7 +19,7 @@ const cities = [
 ];
 
 const weatherDetails = [
-    { param: 'cloudy', value: `${store.weatherData.clouds.all} %` },
+    { param: 'cloudy', value: `$ %` },
     { param: 'humidity', value: `${store.weatherData.main.humidity} %` },
     { param: 'wind', value: `${store.weatherData.wind.speed} m/s` }
 ];
@@ -40,12 +40,8 @@ const initiateSearch = (): void => {
 
 <template>
     <div class="panel">
-        <Search
-            v-model="city"
-            @input="inputVal => city = inputVal"
-            @click="initiateSearch"
-        />
-        
+        <Search v-model="city" @input="inputVal => city = inputVal" @click="initiateSearch" />
+
         <List classes="cities">
             <ListItem classes="city" v-for="city of cities" :key="city.key">
                 {{city.label}}
@@ -55,13 +51,11 @@ const initiateSearch = (): void => {
         <List classes="details">
             <h4>Weather details</h4>
 
-            <ListItem
-                v-for="detail of weatherDetails"
-                :key="detail.param"
-            >
+            <ListItem v-for="detail of weatherDetails" :key="detail.param">
                 <span class="text-capitalize">{{detail.param}}</span>
-                <span :class="detail.param">{{detail.value}}</span>
-                <input type="hidden" :value="store.weatherData.dt" />
+                <span :class="detail.param" v-if="detail.param === 'cloudy'">{{store.weatherData.clouds.all}} %</span>
+                <span :class="detail.param" v-if="detail.param === 'humidity'">{{ store.weatherData.main.humidity}} %</span>
+                <span :class="detail.param" v-if="detail.param === 'wind'">{{ store.weatherData.wind.speed}} m/s </span>
             </ListItem>
         </List>
     </div>
