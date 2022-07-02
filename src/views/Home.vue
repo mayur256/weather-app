@@ -1,8 +1,40 @@
 <script setup lang="ts">
+// Top level imports
+import { onMounted } from 'vue';
+
+// Reactive Store
+import { store } from '@/store';
+
+
+// Custom Types
+import type { IWeatherResponse } from '@/types';
+
 // Template Components
 import Panel from '@/components/templates/Panel.vue';
 import Main from '../components/templates/Main.vue';
 import AppContainer from '../components/templates/AppContainer.vue';
+
+
+onMounted(() => {
+    if ('geolocation' in navigator) {
+        initiateGeoLocation()
+    }
+})
+
+const initiateGeoLocation = () => {
+    navigator.geolocation.getCurrentPosition((position: GeolocationPosition): void => {
+        const coords: GeolocationCoordinates = position.coords;
+        fetchWeatherInfo(coords);
+    });
+}
+
+const fetchWeatherInfo = ({latitude, longitude}: GeolocationCoordinates): void => {
+    fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=ee0b8fbe82f7cb7d637108da99424a74`)
+        .then((response: Response): Promise<IWeatherResponse> => response.json())
+        .then((weatherData: IWeatherResponse): void => {
+            (store.weatherData as IWeatherResponse) = weatherData;
+        });
+}
 </script>
 
 <template>

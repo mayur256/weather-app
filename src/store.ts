@@ -14,6 +14,7 @@ export const store = reactive({
             icon: ''
         }],
         base: '',
+        visibility: 0,
         main: {
             temp: 0,
             feels_like: 0,

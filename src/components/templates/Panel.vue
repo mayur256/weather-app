@@ -61,6 +61,7 @@ const initiateSearch = (): void => {
             >
                 <span class="text-capitalize">{{detail.param}}</span>
                 <span :class="detail.param">{{detail.value}}</span>
+                <input type="hidden" :value="store.weatherData.dt" />
             </ListItem>
         </List>
     </div>
