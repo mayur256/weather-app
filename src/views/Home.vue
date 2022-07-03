@@ -5,7 +5,6 @@ import { onMounted } from 'vue';
 // Reactive Store
 import { store } from '@/store';
 
-
 // Custom Types
 import type { IWeatherResponse } from '@/types';
 
@@ -14,12 +13,19 @@ import Panel from '@/components/templates/Panel.vue';
 import Main from '../components/templates/Main.vue';
 import AppContainer from '../components/templates/AppContainer.vue';
 
+// Utilities
+// Constants
+import { API_BASE, API_KEY, ERROR_404 } from "@/utils/Constants";
+import { isDay, changeBackgroundImage, getCurrentWeather } from "@/utils/Common";
 
+// Lifecycle hooks
 onMounted(() => {
     if ('geolocation' in navigator) {
         initiateGeoLocation()
     }
-})
+});
+
+/** Handler/Utility functions - starts */
 
 const initiateGeoLocation = () => {
     navigator.geolocation.getCurrentPosition((position: GeolocationPosition): void => {
@@ -28,13 +34,23 @@ const initiateGeoLocation = () => {
     });
 }
 
+// fetches weather info based on current location
 const fetchWeatherInfo = ({latitude, longitude}: GeolocationCoordinates): void => {
-    fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=ee0b8fbe82f7cb7d637108da99424a74`)
+    fetch(`${API_BASE}?lat=${latitude}&lon=${longitude}&appid=${API_KEY}`)
         .then((response: Response): Promise<IWeatherResponse> => response.json())
         .then((weatherData: IWeatherResponse): void => {
-            (store.weatherData as IWeatherResponse) = weatherData;
+            if (weatherData.cod !== ERROR_404) {
+                (store.weatherData as IWeatherResponse) = weatherData;
+
+                // change background and icons based on current weather data
+                const weatherImgKey = getCurrentWeather(weatherData);
+                const timeOfDay = isDay() ? 'day' : 'night';
+                changeBackgroundImage(timeOfDay, weatherImgKey);
+            }
         });
 }
+
+/** Handler/Utility functions - ends */
 </script>
 
 <template>
@@ -52,7 +68,7 @@ const fetchWeatherInfo = ({latitude, longitude}: GeolocationCoordinates): void =
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    color: #000;
+    color: #fff;
     position: relative;
     transition: 500ms;
     opacity: 1;

@@ -36,4 +36,5 @@ export interface IWeatherResponse {
     timezone?: number; // shift in seconds from UTC
     id: number; // city id
     name: string; // name of the city
+    cod: string; // response status code
 }
