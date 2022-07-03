@@ -2,6 +2,8 @@
 // Top level imports
 import { ref } from "vue";
 import type { Ref } from "vue";
+// Custom types
+import type { IWeatherResponse } from "@/types";
 
 // store 
 import { store } from "@/store";
@@ -10,6 +12,11 @@ import { store } from "@/store";
 import Search from "../molecules/Search.vue";
 import List from "../molecules/List.vue";
 import ListItem from "../atoms/ListItem.vue";
+
+// Utilities
+// Constants
+import { API_BASE, API_KEY, ERROR_404 } from "@/utils/Constants";
+import { isDay, changeBackgroundImage, getCurrentWeather } from "@/utils/Common";
 
 const cities = [
     { key: 'new-york', label: 'New York' },
@@ -32,9 +39,18 @@ const initiateSearch = (): void => {
     const cityVal = city.value;
     if (!cityVal) return;
 
-    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityVal}&appid=ee0b8fbe82f7cb7d637108da99424a74`)
-        .then(response => response.json())
-        .then(response => store.weatherData = response)
+    fetch(`${API_BASE}?q=${cityVal}&appid=${API_KEY}`)
+        .then((response): Promise<IWeatherResponse> => response.json())
+        .then((weatherData: IWeatherResponse): void => {
+            if (weatherData.cod !== ERROR_404) {
+                (store.weatherData as IWeatherResponse) = weatherData;
+
+                // change background and icons based on current weather data
+                const weatherImgKey = getCurrentWeather(weatherData);
+                const timeOfDay = isDay() ? 'day' : 'night';
+                changeBackgroundImage(timeOfDay, weatherImgKey);
+            }
+        })
 }
 
 const onCityClicked = (cityArg: { key: string, label: string }): void => {

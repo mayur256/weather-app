@@ -25,6 +25,7 @@ const emit = defineEmits<IEmits>();
         classes="search"
         placeholder="Search location"
         @input="inputVal => emit('input', inputVal)"
+        @keyup.enter="emit('click')"
     />
 
     <Button @click="emit('click')">
