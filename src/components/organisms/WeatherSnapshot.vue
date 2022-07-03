@@ -3,6 +3,9 @@
 import { computed } from "vue";
 import type { Weather } from "@/types";
 
+// Atoms / Molecules / Organisms
+import Image from "../atoms/Image.vue";
+
 interface IProps {
     temp: number;
     city: string;
@@ -12,12 +15,20 @@ interface IProps {
 
 const props = defineProps<IProps>();
 
+// Computed Properties
 // Convert kelvin to celcius
 const tempInCelcius = computed(() => Math.ceil(props.temp - 273.15));
 const time = computed(() => {
     const dateTime = new Date();
-    return `${dateTime.getHours()}:${dateTime.getMinutes()}` ;
-})
+    return `${dateTime.getHours()}:${dateTime.getMinutes()}`;
+});
+
+const date = computed(() => {
+    const options = { weekday: 'long', month: 'long', day: 'numeric' };
+    return new Date().toLocaleString('en-IN', options as any);
+});
+
+const isDay = true;
 
 </script>
 
@@ -31,13 +42,19 @@ const time = computed(() => {
                 <span class="time">{{time}}</span>
                 -
                 <span class="date">
-                    Monday Sep 19
+                    {{date}}
                 </span>
             </small>
         </div>
 
         <div class="weather">
-            <img src="../../assets/icons/day/113.png" class="icon" alt="icon" width="50" height="50" />
+            <Image
+                src="/assets/icons/day/113.png"
+                classes="icon"
+                alt="icon"
+                width="50"
+                height="50"
+            />
             <span class="condition">{{weather[0].main}}</span>
         </div>
     </div>

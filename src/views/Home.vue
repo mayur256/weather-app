@@ -24,7 +24,7 @@ onMounted(() => {
 const initiateGeoLocation = () => {
     navigator.geolocation.getCurrentPosition((position: GeolocationPosition): void => {
         const coords: GeolocationCoordinates = position.coords;
-        fetchWeatherInfo(coords);
+        // fetchWeatherInfo(coords);
     });
 }
 
@@ -48,7 +48,7 @@ const fetchWeatherInfo = ({latitude, longitude}: GeolocationCoordinates): void =
 <style>
 .weather-app {
     min-height: 100vh;
-    background-image: url('@/assets/images/day/clear.jpg');
+    background-image: url('/assets/images/day/clear.jpg');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
