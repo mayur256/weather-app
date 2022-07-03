@@ -6,6 +6,12 @@ import type { Weather } from "@/types";
 // Atoms / Molecules / Organisms
 import Image from "../atoms/Image.vue";
 
+// Utilities
+// Common functions
+import { isDay } from "@/utils/Common";
+// Constants
+import { ASSETS_BASE_PATH } from "@/utils/Constants";
+
 interface IProps {
     temp: number;
     city: string;
@@ -22,13 +28,12 @@ const time = computed(() => {
     const dateTime = new Date();
     return `${dateTime.getHours()}:${dateTime.getMinutes()}`;
 });
+const timeOfDay = computed(() => isDay() ? 'day' : 'night');
 
 const date = computed(() => {
     const options = { weekday: 'long', month: 'long', day: 'numeric' };
     return new Date().toLocaleString('en-IN', options as any);
 });
-
-const isDay = true;
 
 </script>
 
@@ -49,7 +54,7 @@ const isDay = true;
 
         <div class="weather">
             <Image
-                src="/assets/icons/day/113.png"
+                :src="`https://openweathermap.org/img/w/${weather[0].icon}.png`"
                 classes="icon"
                 alt="icon"
                 width="50"
