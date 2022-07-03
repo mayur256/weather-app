@@ -36,6 +36,14 @@ const initiateSearch = (): void => {
         .then(response => response.json())
         .then(response => store.weatherData = response)
 }
+
+const onCityClicked = (cityArg: { key: string, label: string }): void => {
+    if (city.value === cityArg.label) return;
+
+    city.value = cityArg.label;
+    initiateSearch();
+}
+
 </script>
 
 <template>
@@ -43,8 +51,9 @@ const initiateSearch = (): void => {
         <Search v-model="city" @input="inputVal => city = inputVal" @click="initiateSearch" />
 
         <List classes="cities">
-            <ListItem classes="city" v-for="city of cities" :key="city.key">
-                {{city.label}}
+            <h4>Top Cities</h4>
+            <ListItem classes="city" v-for="city of cities" :key="city.key" @click="onCityClicked(city)">
+                <span class="city-name"> {{city.label}}</span>
             </ListItem>
         </List>
 

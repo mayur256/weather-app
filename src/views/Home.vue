@@ -24,7 +24,7 @@ onMounted(() => {
 const initiateGeoLocation = () => {
     navigator.geolocation.getCurrentPosition((position: GeolocationPosition): void => {
         const coords: GeolocationCoordinates = position.coords;
-        // fetchWeatherInfo(coords);
+        fetchWeatherInfo(coords);
     });
 }
 
@@ -192,9 +192,13 @@ const fetchWeatherInfo = ({latitude, longitude}: GeolocationCoordinates): void =
     display: block;
     cursor: pointer;
 }
-
-.city:hover {
+.city > .city-name {
+    display: inline-block;
+    transition: transform .2s;
+}
+.city > .city-name:hover {
     color: #fff;
+    transform: scale(1.1);
 }
 
 .details li {
