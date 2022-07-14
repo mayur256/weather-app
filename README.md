@@ -1,9 +1,9 @@
 # Weather App
----
+
 The **Weather App** is an interactive application that that initially displays weather information of users' location with the help of **Geolocation** API. The System also allows user to query weather information of any other location in the world corresponding to its Zipcode, City, District, Province or State with data supported from **Open Weather** API
 
 ## Setup
----
+
 ### Fork and clone this repo
 1. Press the ‘fork’ button to make a copy of this repo in your own GH account
 2. In your forked repo, clone this project down to your local machine using either SSH or HTTP
