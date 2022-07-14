@@ -1,46 +1,25 @@
-# weather-app
+# Weather App
+---
+The **Weather App** is an interactive application that that initially displays weather information of users' location with the help of **Geolocation** API. The System also allows user to query weather information of any other location in the world corresponding to its Zipcode, City, District, Province or State with data supported from **Open Weather** API
 
-This template should help get you started developing with Vue 3 in Vite.
+## Setup
+---
+### Fork and clone this repo
+1. Press the ‘fork’ button to make a copy of this repo in your own GH account
+2. In your forked repo, clone this project down to your local machine using either SSH or HTTP
 
-## Recommended IDE Setup
+### Get Your [Open Weather](https://openweathermap.org/api) API Key
+1. Register your account on Open Weather's [signup](https://home.openweathermap.org/users/sign_up) page
+2. Create an API key by navigating to **API Keys** from **Dashboard**
+3. Store and Add API key to your application's env file
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
-
-## Type Support for `.vue` Imports in TS
-
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
-
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
-
-1. Disable the built-in TypeScript Extension
-    1) Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-    2) Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Type-Check, Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+### Local Installation Steps
+1. After the project is cloned. Install the dependencies
+    ```sh
+    npm install
+    ```
+2. Run the project in dev mode with hot Reload
+    ```sh
+    npm run dev
+    ```
+**_Kudos_** installation is done. Feel free to explore as you please.
