@@ -2,6 +2,8 @@
 
 The **Weather App** is an interactive application that that initially displays weather information of users' location with the help of **Geolocation** API. The System also allows user to query weather information of any other location in the world corresponding to its Zipcode, City, District, Province or State with data supported from **Open Weather** API
 
+![weather-app-screenshot](https://user-images.githubusercontent.com/39913092/179823560-20f42a99-369a-4f25-b91e-3915b8168564.png)
+
 ## Setup
 
 ### Fork and clone this repo
