@@ -31,6 +31,7 @@
     "eslint": "^8.5.0",
     "eslint-plugin-vue": "^9.0.0",
     "jest": "^28.1.3",
+    "jest-environment-jsdom": "^28.1.3",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.5.1",
     "ts-jest": "^28.0.7",
@@ -51,6 +52,9 @@
     },
     "moduleNameMapper": {
       "^@/(.*)$": "<rootDir>/src/$1"
+    },
+    "testEnvironmentOptions": {
+       "customExportConditions": ["node", "node-addons"]
     }
   }
 }
