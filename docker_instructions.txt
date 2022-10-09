@@ -1,0 +1,11 @@
+// Build the image
+docker build -t **image_name** .
+
+// check the images
+docker images
+
+// view a list of containers
+docker ps -a
+
+// run the app in a docker container
+docker run -it -p HOST_PORT:CONTAINER_PORT -d --name weather-app weather-app  
