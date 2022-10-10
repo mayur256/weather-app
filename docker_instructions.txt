@@ -8,4 +8,4 @@ docker images
 docker ps -a
 
 // run the app in a docker container
-docker run -it -p HOST_PORT:CONTAINER_PORT -d --name weather-app weather-app  
+docker run -it -p HOST_PORT:CONTAINER_PORT -d --name CONTAINER_NAME IMAGE_NAME
