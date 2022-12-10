@@ -2,6 +2,10 @@
 // Top level imports
 import { onMounted } from 'vue';
 
+// Sweet-alert
+import Swal from 'sweetalert2'
+import type { SweetAlertIcon } from 'sweetalert2'
+
 // Reactive Store
 import { store } from '@/store';
 
@@ -21,17 +25,59 @@ import { isDay, changeBackgroundImage, getCurrentWeather } from "@/utils/Common"
 // Lifecycle hooks
 onMounted(() => {
     if ('geolocation' in navigator) {
-        initiateGeoLocation()
+        initiateGeoLocation();
     }
 });
 
 /** Handler/Utility functions - starts */
 
-const initiateGeoLocation = () => {
+const initiateGeoLocation = async(): Promise<void> => {
+    // check for geolocation permission status
+    if (await checkGeoLocationPermissionStatus()) {
+        getWeatherInfoByLocation();  
+    } else {
+        // show the error to user - permission(geolocation) is not enabled
+        showSweetAlert({
+            title: 'Error',
+            text: 'This app requires gelocation permission. Please enable it.',
+            icon: 'error'
+        })
+    }
+}
+
+// gets weather information based on geolocation coordinates
+const getWeatherInfoByLocation = (): void => {
+    // get location coordinates
     navigator.geolocation.getCurrentPosition((position: GeolocationPosition): void => {
         const coords: GeolocationCoordinates = position.coords;
+        // fetch weather data based on coords
         fetchWeatherInfo(coords);
     });
+};
+
+// checks the status of gelocation permissions and attaches a change listener
+const checkGeoLocationPermissionStatus = async (): Promise<boolean> => {
+    const permissionStatus: PermissionStatus = await navigator.permissions.query({ name: 'geolocation' });
+
+    // attach a permission status change event listener
+    permissionStatus.onchange = async (event: Event): Promise<void> => {
+        if ((event?.target as PermissionStatus)?.state === 'granted') {
+            await showSweetAlert({
+                text: 'You have enabled geolocation permission required to use this app.',
+                icon: 'success'
+            })
+            getWeatherInfoByLocation();
+        } else {
+            // show error if permission denied
+            showSweetAlert({
+                title: 'Error',
+                text: 'You have denied geolocation permission. Please enable it to use this app',
+                icon: 'error'
+            })
+        }
+    }
+
+    return permissionStatus?.state === 'granted';
 }
 
 // fetches weather info based on current location
@@ -48,6 +94,16 @@ const fetchWeatherInfo = ({latitude, longitude}: GeolocationCoordinates): void =
                 changeBackgroundImage(timeOfDay, weatherImgKey);
             }
         });
+}
+
+// dislays an informative alert to the user
+const showSweetAlert = ({ title, text, icon }: Partial<{ title: string, text: string, icon: SweetAlertIcon }>): void => {
+    Swal.fire({
+        title,
+        text,
+        icon,
+        confirmButtonText: 'OK'
+    });
 }
 
 /** Handler/Utility functions - ends */
